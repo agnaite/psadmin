@@ -6,10 +6,10 @@ var Home = React.createClass({
   render: function() {
     return (
       <div className='jumbotron'>
-        <h1>PS Administration</h1>
-        <p>Tutorial</p>
+        <h1>Schnittlauchbrot</h1>
+        <p>Brot</p>
       </div>
-    )
+    );
   }
 });
 

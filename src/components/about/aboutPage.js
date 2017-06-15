@@ -7,8 +7,9 @@ var About = React.createClass({
     return (
       <div>
         <h1>About</h1>
+        <p>Das beste brot in Österreich.</p>
       </div>
-    )
+    );
   }
 });
 
