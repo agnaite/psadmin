@@ -31439,6 +31439,23 @@ module.exports = require('./lib/React');
 
 var React = require('react');
 
+var About = React.createClass({displayName: "About",
+  render: function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement("h1", null, "About")
+      )
+    )
+  }
+});
+
+module.exports = About;
+
+},{"react":186}],188:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
 var Home = React.createClass({displayName: "Home",
   render: function() {
     return (
@@ -31452,12 +31469,36 @@ var Home = React.createClass({displayName: "Home",
 
 module.exports = Home;
 
-},{"react":186}],188:[function(require,module,exports){
+},{"react":186}],189:[function(require,module,exports){
 $ = jQuery = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Home = require('./components/homePage');
+var About = require('./components/about/aboutPage')
 
-ReactDOM.render(React.createElement(Home, null), document.getElementById('app'));
+var App = React.createClass({displayName: "App",
+  render: function() {
+    var Child;
 
-},{"./components/homePage":187,"jquery":26,"react":186,"react-dom":32}]},{},[188]);
+    switch(this.props.route) {
+      case 'about': Child = About; break;
+      default: Child = Home;
+    }
+    return (
+      React.createElement("div", null, 
+        React.createElement(Child, null)
+      )
+    )
+  }
+});
+
+function render() {
+  var route = window.location.hash.substr(1);
+
+  ReactDOM.render(React.createElement(App, {route: route}), document.getElementById('app'));
+}
+
+window.addEventListener('hashchange', render);
+render();
+
+},{"./components/about/aboutPage":187,"./components/homePage":188,"jquery":26,"react":186,"react-dom":32}]},{},[189]);
