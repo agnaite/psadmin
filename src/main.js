@@ -2,6 +2,7 @@ $ = jQuery = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Home = require('./components/homePage');
+var Breads = require('./components/breads/breadPage');
 var About = require('./components/about/aboutPage');
 var Header = require('./components/common/header');
 
@@ -11,6 +12,7 @@ var App = React.createClass({
 
     switch(this.props.route) {
       case 'about': Child = About; break;
+      case 'breads': Child = Breads; break;
       default: Child = Home;
     }
     return (
