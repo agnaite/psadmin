@@ -12,7 +12,7 @@ var App = React.createClass({
 
     switch(this.props.route) {
       case 'about': Child = About; break;
-      case 'breads': Child = Breads; break;
+      case 'breads': Child = BreadPage; break;
       default: Child = Home;
     }
     return (

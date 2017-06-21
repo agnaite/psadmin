@@ -48620,7 +48620,9 @@ module.exports = About;
 var React = require('react');
 
 var BreadsList = React.createClass({displayName: "BreadsList",
-
+  propTypes: {
+    breads: React.PropTypes.array.isRequired
+  },
   render: function() {
     var createBreadRow = function(bread) {
       return (
@@ -48638,8 +48640,10 @@ var BreadsList = React.createClass({displayName: "BreadsList",
       React.createElement("div", null, 
         React.createElement("table", {className: "table"}, 
           React.createElement("thead", null, 
-            React.createElement("th", null, "ID"), 
-            React.createElement("th", null, "Name")
+            React.createElement("tr", null, 
+              React.createElement("th", null, "ID"), 
+              React.createElement("th", null, "Name")
+            )
           ), 
           React.createElement("tbody", null, 
             this.props.breads.map(createBreadRow, this)
@@ -48659,14 +48663,15 @@ var React = require('react');
 var BreadApi = require('../../api/breadApi');
 var BreadList = require('./breadList');
 
-var Breads = React.createClass({displayName: "Breads",
+var BreadPage = React.createClass({displayName: "BreadPage",
   getInitialState: function() {
     return {
       breads: []
     };
   },
   componentDidMount: function() {
-    if (this.isMounted()) {
+    this._isMounted = true;
+    if (this._isMounted) {
       this.setState({ breads: BreadApi.getAllBreads() });
     }
   },
@@ -48677,10 +48682,13 @@ var Breads = React.createClass({displayName: "Breads",
         React.createElement(BreadList, {breads: this.state.breads})
       )
     );
+  },
+  componentWillUnmout: function() {
+    this._isMounted = false;
   }
 });
 
-module.exports = Breads;
+module.exports = BreadPage;
 
 },{"../../api/breadApi":188,"./breadList":191,"react":187}],193:[function(require,module,exports){
 var React = require('react');
@@ -48739,7 +48747,7 @@ var App = React.createClass({displayName: "App",
 
     switch(this.props.route) {
       case 'about': Child = About; break;
-      case 'breads': Child = Breads; break;
+      case 'breads': Child = BreadPage; break;
       default: Child = Home;
     }
     return (

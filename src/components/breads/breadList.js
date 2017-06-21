@@ -3,7 +3,9 @@
 var React = require('react');
 
 var BreadsList = React.createClass({
-
+  propTypes: {
+    breads: React.PropTypes.array.isRequired
+  },
   render: function() {
     var createBreadRow = function(bread) {
       return (
@@ -21,8 +23,10 @@ var BreadsList = React.createClass({
       <div>
         <table className="table">
           <thead>
-            <th>ID</th>
-            <th>Name</th>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+            </tr>
           </thead>
           <tbody>
             {this.props.breads.map(createBreadRow, this)}
