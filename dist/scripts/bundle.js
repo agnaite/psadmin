@@ -48618,17 +48618,9 @@ module.exports = About;
 "use strict";
 
 var React = require('react');
-var BreadApi = require('../../api/breadApi');
 
-var Breads = React.createClass({displayName: "Breads",
-  getInitialState: function() {
-    return {
-      breads: []
-    };
-  },
-  componentWillMount: function() {
-    this.setState({ breads: BreadApi.getAllBreads() });
-  },
+var BreadsList = React.createClass({displayName: "BreadsList",
+
   render: function() {
     var createBreadRow = function(bread) {
       return (
@@ -48644,14 +48636,13 @@ var Breads = React.createClass({displayName: "Breads",
     };
     return (
       React.createElement("div", null, 
-        React.createElement("h1", null, "Breads"), 
         React.createElement("table", {className: "table"}, 
           React.createElement("thead", null, 
             React.createElement("th", null, "ID"), 
             React.createElement("th", null, "Name")
           ), 
           React.createElement("tbody", null, 
-            this.state.breads.map(createBreadRow, this)
+            this.props.breads.map(createBreadRow, this)
           )
         )
       )
@@ -48659,9 +48650,39 @@ var Breads = React.createClass({displayName: "Breads",
   }
 });
 
+module.exports = BreadsList;
+
+},{"react":187}],192:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var BreadApi = require('../../api/breadApi');
+var BreadList = require('./breadList');
+
+var Breads = React.createClass({displayName: "Breads",
+  getInitialState: function() {
+    return {
+      breads: []
+    };
+  },
+  componentDidMount: function() {
+    if (this.isMounted()) {
+      this.setState({ breads: BreadApi.getAllBreads() });
+    }
+  },
+  render: function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement("h1", null, "Breads"), 
+        React.createElement(BreadList, {breads: this.state.breads})
+      )
+    );
+  }
+});
+
 module.exports = Breads;
 
-},{"../../api/breadApi":188,"react":187}],192:[function(require,module,exports){
+},{"../../api/breadApi":188,"./breadList":191,"react":187}],193:[function(require,module,exports){
 var React = require('react');
 
 var Header = React.createClass({displayName: "Header",
@@ -48685,7 +48706,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":187}],193:[function(require,module,exports){
+},{"react":187}],194:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -48703,7 +48724,7 @@ var Home = React.createClass({displayName: "Home",
 
 module.exports = Home;
 
-},{"react":187}],194:[function(require,module,exports){
+},{"react":187}],195:[function(require,module,exports){
 $ = jQuery = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -48740,4 +48761,4 @@ function render() {
 window.addEventListener('hashchange', render);
 render();
 
-},{"./components/about/aboutPage":190,"./components/breads/breadPage":191,"./components/common/header":192,"./components/homePage":193,"jquery":26,"react":187,"react-dom":33}]},{},[194]);
+},{"./components/about/aboutPage":190,"./components/breads/breadPage":192,"./components/common/header":193,"./components/homePage":194,"jquery":26,"react":187,"react-dom":33}]},{},[195]);

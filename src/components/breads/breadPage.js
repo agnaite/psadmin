@@ -2,6 +2,7 @@
 
 var React = require('react');
 var BreadApi = require('../../api/breadApi');
+var BreadList = require('./breadList');
 
 var Breads = React.createClass({
   getInitialState: function() {
@@ -9,34 +10,16 @@ var Breads = React.createClass({
       breads: []
     };
   },
-  componentWillMount: function() {
-    this.setState({ breads: BreadApi.getAllBreads() });
+  componentDidMount: function() {
+    if (this.isMounted()) {
+      this.setState({ breads: BreadApi.getAllBreads() });
+    }
   },
   render: function() {
-    var createBreadRow = function(bread) {
-      return (
-        <tr key={bread.id}>
-          <td>
-            <a href={"/#breads/" + bread.id}>{bread.id}</a>
-          </td>
-          <td>
-            {bread.firstName} {bread.lastName}
-          </td>
-        </tr>
-      );
-    };
     return (
       <div>
         <h1>Breads</h1>
-        <table className="table">
-          <thead>
-            <th>ID</th>
-            <th>Name</th>
-          </thead>
-          <tbody>
-            {this.state.breads.map(createBreadRow, this)}
-          </tbody>
-        </table>
+        <BreadList breads={this.state.breads} />
       </div>
     );
   }
