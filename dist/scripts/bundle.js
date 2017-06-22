@@ -52057,13 +52057,13 @@ var Header = React.createClass({displayName: "Header",
     return (
       React.createElement("nav", {className: "navbar navbar-default"}, 
         React.createElement("div", {className: "container-fluid"}, 
-          React.createElement("a", {href: "/", className: "navbar-brand"}, 
+          React.createElement(Link, {to: "/", className: "navbar-brand"}, 
             React.createElement("img", {className: "logo", src: "../images/brot.jpeg"})
           ), 
           React.createElement("ul", {className: "nav navbar-nav"}, 
             React.createElement("li", null, React.createElement(Link, {to: "/"}, "Home")), 
-            React.createElement("li", null, React.createElement(Link, {to: "/about"}, "About")), 
-            React.createElement("li", null, React.createElement(Link, {to: "/breads"}, "Breads"))
+            React.createElement("li", null, React.createElement(Link, {to: "about"}, "About")), 
+            React.createElement("li", null, React.createElement(Link, {to: "breads"}, "Breads"))
           )
         )
       )
@@ -52077,13 +52077,15 @@ module.exports = Header;
 "use strict";
 
 var React = require('react');
+var Link = require('react-router-dom').Link;
 
 var Home = React.createClass({displayName: "Home",
   render: function() {
     return (
       React.createElement("div", {className: "jumbotron"}, 
         React.createElement("h1", null, "Schnittlauchbrot"), 
-        React.createElement("p", null, "Brot")
+        React.createElement("p", null, "Brot"), 
+        React.createElement(Link, {to: "about", className: "btn btn-primary btn-large"}, "Learn more!")
       )
     );
   }
@@ -52091,7 +52093,7 @@ var Home = React.createClass({displayName: "Home",
 
 module.exports = Home;
 
-},{"react":224}],236:[function(require,module,exports){
+},{"react":224,"react-router-dom":185}],236:[function(require,module,exports){
 "use strict";
 
 var React = require('react');

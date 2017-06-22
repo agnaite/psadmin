@@ -6,13 +6,13 @@ var Header = React.createClass({
     return (
       <nav className='navbar navbar-default'>
         <div className='container-fluid'>
-          <a href='/' className='navbar-brand'>
+          <Link to='/' className='navbar-brand'>
             <img className='logo' src='../images/brot.jpeg' />
-          </a>
+          </Link>
           <ul className='nav navbar-nav'>
             <li><Link to='/'>Home</Link></li>
-            <li><Link to='/about'>About</Link></li>
-            <li><Link to='/breads'>Breads</Link></li>
+            <li><Link to='about'>About</Link></li>
+            <li><Link to='breads'>Breads</Link></li>
           </ul>
         </div>
       </nav>
