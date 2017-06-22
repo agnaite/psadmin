@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router-dom').Link;
 
 var Header = React.createClass({
   render: function() {
@@ -9,9 +10,9 @@ var Header = React.createClass({
             <img className='logo' src='../images/brot.jpeg' />
           </a>
           <ul className='nav navbar-nav'>
-            <li><a href='/'>Home</a></li>
-            <li><a href='/#about'>About</a></li>
-            <li><a href='/#breads'>Breads</a></li>
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/about'>About</Link></li>
+            <li><Link to='/breads'>Breads</Link></li>
           </ul>
         </div>
       </nav>
