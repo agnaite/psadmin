@@ -51934,6 +51934,26 @@ module.exports = {
 "use strict";
 
 var React = require('react');
+var Link = require('react-router-dom').Link;
+
+var NotFoundPage = React.createClass({displayName: "NotFoundPage",
+  render: function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement("h1", null, "Page Not Found"), 
+        React.createElement("p", null, "There is nothing to see here!"), 
+        React.createElement("p", null, React.createElement(Link, {to: "/"}, "Back to Home"))
+      )
+    );
+  }
+});
+
+module.exports = NotFoundPage;
+
+},{"react":224,"react-router-dom":185}],231:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
 
 var About = React.createClass({displayName: "About",
   render: function() {
@@ -51948,7 +51968,7 @@ var About = React.createClass({displayName: "About",
 
 module.exports = About;
 
-},{"react":224}],231:[function(require,module,exports){
+},{"react":224}],232:[function(require,module,exports){
 /*eslint-disable strict */
 
 var React = require('react');
@@ -51972,7 +51992,7 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../routes":237,"./common/header":234,"jquery":36,"react":224}],232:[function(require,module,exports){
+},{"../routes":238,"./common/header":235,"jquery":36,"react":224}],233:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52014,7 +52034,7 @@ var BreadsList = React.createClass({displayName: "BreadsList",
 
 module.exports = BreadsList;
 
-},{"react":224}],233:[function(require,module,exports){
+},{"react":224}],234:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52048,7 +52068,7 @@ var BreadPage = React.createClass({displayName: "BreadPage",
 
 module.exports = BreadPage;
 
-},{"../../api/breadApi":228,"./breadList":232,"react":224}],234:[function(require,module,exports){
+},{"../../api/breadApi":228,"./breadList":233,"react":224}],235:[function(require,module,exports){
 var React = require('react');
 var Link = require('react-router-dom').Link;
 
@@ -52073,7 +52093,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":224,"react-router-dom":185}],235:[function(require,module,exports){
+},{"react":224,"react-router-dom":185}],236:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52093,18 +52113,18 @@ var Home = React.createClass({displayName: "Home",
 
 module.exports = Home;
 
-},{"react":224,"react-router-dom":185}],236:[function(require,module,exports){
+},{"react":224,"react-router-dom":185}],237:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router-dom');
-var Router = ReactRouter.BrowserRouter;
+var Router = ReactRouter.HashRouter;
 var App = require('./components/app');
 
 ReactDOM.render(React.createElement(Router, null, React.createElement(App, null)), document.getElementById('app'));
 
-},{"./components/app":231,"react":224,"react-dom":46,"react-router-dom":185}],237:[function(require,module,exports){
+},{"./components/app":232,"react":224,"react-dom":46,"react-router-dom":185}],238:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52115,10 +52135,13 @@ var Switch = ReactRouter.Switch;
 var Routes = React.createClass({displayName: "Routes",
   render: function() {
     return (
-      React.createElement(Switch, null, 
-        React.createElement(Route, {exact: true, path: "/", component: require("./components/homePage")}), 
-        React.createElement(Route, {path: "/about", component: require("./components/about/aboutPage")}), 
-        React.createElement(Route, {path: "/breads", component: require("./components/breads/breadPage")})
+      React.createElement("main", null, 
+        React.createElement(Switch, null, 
+          React.createElement(Route, {exact: true, path: "/", component: require("./components/homePage")}), 
+          React.createElement(Route, {path: "/about", component: require("./components/about/aboutPage")}), 
+          React.createElement(Route, {path: "/breads", component: require("./components/breads/breadPage")}), 
+          React.createElement(Route, {path: "*", component: require("./components/NotFoundPage")})
+        )
       )
     );
   }
@@ -52126,4 +52149,4 @@ var Routes = React.createClass({displayName: "Routes",
 
 module.exports = Routes;
 
-},{"./components/about/aboutPage":230,"./components/breads/breadPage":233,"./components/homePage":235,"react":224,"react-router-dom":185}]},{},[236]);
+},{"./components/NotFoundPage":230,"./components/about/aboutPage":231,"./components/breads/breadPage":234,"./components/homePage":236,"react":224,"react-router-dom":185}]},{},[237]);
