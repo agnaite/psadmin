@@ -52135,11 +52135,11 @@ var Switch = ReactRouter.Switch;
 var Routes = React.createClass({displayName: "Routes",
   render: function() {
     return (
-      React.createElement("main", null, 
+      React.createElement("div", null, 
         React.createElement(Switch, null, 
           React.createElement(Route, {exact: true, path: "/", component: require("./components/homePage")}), 
-          React.createElement(Route, {path: "/about", component: require("./components/about/aboutPage")}), 
-          React.createElement(Route, {path: "/breads", component: require("./components/breads/breadPage")}), 
+          React.createElement(Route, {exact: true, path: "/about", component: require("./components/about/aboutPage")}), 
+          React.createElement(Route, {exact: true, path: "/breads", component: require("./components/breads/breadPage")}), 
           React.createElement(Route, {path: "*", component: require("./components/NotFoundPage")})
         )
       )

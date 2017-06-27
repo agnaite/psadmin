@@ -8,14 +8,14 @@ var Switch = ReactRouter.Switch;
 var Routes = React.createClass({
   render: function() {
     return (
-      <main>
+      <div>
         <Switch>
           <Route exact path='/' component={require("./components/homePage")}/>
-          <Route path='/about' component={require("./components/about/aboutPage")}/>
-          <Route path='/breads' component={require("./components/breads/breadPage")}/>
+          <Route exact path='/about' component={require("./components/about/aboutPage")}/>
+          <Route exact path='/breads' component={require("./components/breads/breadPage")}/>
           <Route path='*' component={require("./components/NotFoundPage")} />
         </Switch>
-      </main>
+      </div>
     );
   }
 });
