@@ -4,6 +4,7 @@ var React = require('react');
 var ReactRouter = require('react-router-dom');
 var Route = ReactRouter.Route;
 var Switch = ReactRouter.Switch;
+var Redirect = ReactRouter.Redirect;
 
 var Routes = React.createClass({
   render: function() {
@@ -13,6 +14,8 @@ var Routes = React.createClass({
           <Route exact path='/' component={require("./components/homePage")}/>
           <Route exact path='/about' component={require("./components/about/aboutPage")}/>
           <Route exact path='/breads' component={require("./components/breads/breadPage")}/>
+          <Redirect from='/about-us' to='/about' />
+          <Redirect from='/about/*' to='/about' />
           <Route path='*' component={require("./components/NotFoundPage")} />
         </Switch>
       </div>

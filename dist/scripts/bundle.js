@@ -52131,6 +52131,7 @@ var React = require('react');
 var ReactRouter = require('react-router-dom');
 var Route = ReactRouter.Route;
 var Switch = ReactRouter.Switch;
+var Redirect = ReactRouter.Redirect;
 
 var Routes = React.createClass({displayName: "Routes",
   render: function() {
@@ -52140,6 +52141,8 @@ var Routes = React.createClass({displayName: "Routes",
           React.createElement(Route, {exact: true, path: "/", component: require("./components/homePage")}), 
           React.createElement(Route, {exact: true, path: "/about", component: require("./components/about/aboutPage")}), 
           React.createElement(Route, {exact: true, path: "/breads", component: require("./components/breads/breadPage")}), 
+          React.createElement(Redirect, {from: "/about-us", to: "/about"}), 
+          React.createElement(Redirect, {from: "/about/*", to: "/about"}), 
           React.createElement(Route, {path: "*", component: require("./components/NotFoundPage")})
         )
       )
