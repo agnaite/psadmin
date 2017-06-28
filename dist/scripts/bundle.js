@@ -51992,7 +51992,42 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../routes":238,"./common/header":235,"jquery":36,"react":224}],233:[function(require,module,exports){
+},{"../routes":240,"./common/header":237,"jquery":36,"react":224}],233:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+var BreadForm = React.createClass({displayName: "BreadForm",
+  render: function() {
+    return (
+      React.createElement("form", null, 
+        React.createElement("label", {htmlFor: "firstName"}, "First Name"), 
+        React.createElement("input", {type: "text", 
+               name: "firstName", 
+               className: "form-control", 
+               placeholder: "First Name", 
+               ref: "firstName", 
+               onChange: this.props.onChange, 
+               value: this.props.bread.firstName}), 
+        React.createElement("br", null), 
+        React.createElement("label", {htmlFor: "lastName"}, "Last Name"), 
+        React.createElement("input", {type: "text", 
+               name: "lastName", 
+               className: "form-control", 
+               placeholder: "Last Name", 
+               ref: "lastName", 
+               onChange: this.props.onChange, 
+               value: this.props.bread.lastName}), 
+        React.createElement("br", null), 
+        React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default"})
+      )
+    );
+  }
+});
+
+module.exports = BreadForm;
+
+},{"react":224}],234:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52034,12 +52069,13 @@ var BreadsList = React.createClass({displayName: "BreadsList",
 
 module.exports = BreadsList;
 
-},{"react":224}],234:[function(require,module,exports){
+},{"react":224}],235:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
 var BreadApi = require('../../api/breadApi');
 var BreadList = require('./breadList');
+var Link = require('react-router-dom').Link;
 
 var BreadPage = React.createClass({displayName: "BreadPage",
   getInitialState: function() {
@@ -52057,6 +52093,7 @@ var BreadPage = React.createClass({displayName: "BreadPage",
     return (
       React.createElement("div", null, 
         React.createElement("h1", null, "Breads"), 
+        React.createElement(Link, {to: "/add-bread", className: "btn btn-default"}, "Add Bread"), 
         React.createElement(BreadList, {breads: this.state.breads})
       )
     );
@@ -52068,7 +52105,39 @@ var BreadPage = React.createClass({displayName: "BreadPage",
 
 module.exports = BreadPage;
 
-},{"../../api/breadApi":228,"./breadList":233,"react":224}],235:[function(require,module,exports){
+},{"../../api/breadApi":228,"./breadList":234,"react":224,"react-router-dom":185}],236:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var BreadForm = require('./breadForm');
+
+var ManageBreadPage = React.createClass({displayName: "ManageBreadPage",
+  getInitialState: function() {
+    return {
+      bread: {id: '', firstName: '', lastName: ''}
+    };
+  },
+  setBreadState: function(event) {
+    var field = event.target.name;
+    var value = event.target.value;
+    this.state.bread[field] = value;
+    return this.setState({bread: this.state.bread});
+  },
+  render: function() {
+    return (
+      React.createElement("div", null, 
+        React.createElement("h1", null, "Manage Bread"), 
+        React.createElement(BreadForm, {
+          bread: this.state.bread, 
+          onChange: this.setBreadState})
+      )
+    );
+  }
+});
+
+module.exports = ManageBreadPage;
+
+},{"./breadForm":233,"react":224}],237:[function(require,module,exports){
 var React = require('react');
 var Link = require('react-router-dom').Link;
 
@@ -52093,7 +52162,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":224,"react-router-dom":185}],236:[function(require,module,exports){
+},{"react":224,"react-router-dom":185}],238:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52113,7 +52182,7 @@ var Home = React.createClass({displayName: "Home",
 
 module.exports = Home;
 
-},{"react":224,"react-router-dom":185}],237:[function(require,module,exports){
+},{"react":224,"react-router-dom":185}],239:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52124,7 +52193,7 @@ var App = require('./components/app');
 
 ReactDOM.render(React.createElement(Router, null, React.createElement(App, null)), document.getElementById('app'));
 
-},{"./components/app":232,"react":224,"react-dom":46,"react-router-dom":185}],238:[function(require,module,exports){
+},{"./components/app":232,"react":224,"react-dom":46,"react-router-dom":185}],240:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52141,6 +52210,7 @@ var Routes = React.createClass({displayName: "Routes",
           React.createElement(Route, {exact: true, path: "/", component: require("./components/homePage")}), 
           React.createElement(Route, {exact: true, path: "/about", component: require("./components/about/aboutPage")}), 
           React.createElement(Route, {exact: true, path: "/breads", component: require("./components/breads/breadPage")}), 
+          React.createElement(Route, {exact: true, path: "/add-bread", component: require("./components/breads/manageBreadPage")}), 
           React.createElement(Redirect, {from: "/about-us", to: "/about"}), 
           React.createElement(Redirect, {from: "/about/*", to: "/about"}), 
           React.createElement(Route, {path: "*", component: require("./components/NotFoundPage")})
@@ -52152,4 +52222,4 @@ var Routes = React.createClass({displayName: "Routes",
 
 module.exports = Routes;
 
-},{"./components/NotFoundPage":230,"./components/about/aboutPage":231,"./components/breads/breadPage":234,"./components/homePage":236,"react":224,"react-router-dom":185}]},{},[237]);
+},{"./components/NotFoundPage":230,"./components/about/aboutPage":231,"./components/breads/breadPage":235,"./components/breads/manageBreadPage":236,"./components/homePage":238,"react":224,"react-router-dom":185}]},{},[239]);
