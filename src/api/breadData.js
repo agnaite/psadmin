@@ -2,7 +2,7 @@ module.exports = {
 	breads:
 	[
 		{
-			id: 'pumpernickel',
+			id: 'pumper-nickel',
 			firstName: 'Pumper',
 			lastName: 'Nickel'
 		},

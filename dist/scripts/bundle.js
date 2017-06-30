@@ -51913,7 +51913,7 @@ module.exports = {
 	breads:
 	[
 		{
-			id: 'pumpernickel',
+			id: 'pumper-nickel',
 			firstName: 'Pumper',
 			lastName: 'Nickel'
 		},
@@ -51992,34 +51992,33 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../routes":240,"./common/header":237,"jquery":36,"react":224}],233:[function(require,module,exports){
+},{"../routes":241,"./common/header":237,"jquery":36,"react":224}],233:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
+var Input = require('../common/textInput');
 
 var BreadForm = React.createClass({displayName: "BreadForm",
   render: function() {
     return (
       React.createElement("form", null, 
-        React.createElement("label", {htmlFor: "firstName"}, "First Name"), 
-        React.createElement("input", {type: "text", 
-               name: "firstName", 
-               className: "form-control", 
-               placeholder: "First Name", 
-               ref: "firstName", 
-               onChange: this.props.onChange, 
-               value: this.props.bread.firstName}), 
-        React.createElement("br", null), 
-        React.createElement("label", {htmlFor: "lastName"}, "Last Name"), 
-        React.createElement("input", {type: "text", 
-               name: "lastName", 
-               className: "form-control", 
-               placeholder: "Last Name", 
-               ref: "lastName", 
-               onChange: this.props.onChange, 
-               value: this.props.bread.lastName}), 
-        React.createElement("br", null), 
-        React.createElement("input", {type: "submit", value: "Save", className: "btn btn-default"})
+        React.createElement(Input, {
+          name: "firstName", 
+          label: "First Name", 
+          value: this.props.bread.firstName, 
+          onChange: this.props.onChange}), 
+
+      React.createElement(Input, {
+          name: "lastName", 
+          label: "Last Name", 
+          value: this.props.bread.lastName, 
+          onChange: this.props.onChange}), 
+
+        React.createElement("input", {
+          type: "submit", 
+          value: "Save", 
+          className: "btn btn-default", 
+          onClick: this.props.onSave})
       )
     );
   }
@@ -52027,7 +52026,7 @@ var BreadForm = React.createClass({displayName: "BreadForm",
 
 module.exports = BreadForm;
 
-},{"react":224}],234:[function(require,module,exports){
+},{"../common/textInput":238,"react":224}],234:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52110,6 +52109,7 @@ module.exports = BreadPage;
 
 var React = require('react');
 var BreadForm = require('./breadForm');
+var BreadApi = require('../../api/breadApi');
 
 var ManageBreadPage = React.createClass({displayName: "ManageBreadPage",
   getInitialState: function() {
@@ -52123,13 +52123,19 @@ var ManageBreadPage = React.createClass({displayName: "ManageBreadPage",
     this.state.bread[field] = value;
     return this.setState({bread: this.state.bread});
   },
+  saveBread: function(event) {
+    event.preventDefault();
+    BreadApi.saveBread(this.state.bread);
+    window.location = '#/breads';
+  },
   render: function() {
     return (
       React.createElement("div", null, 
         React.createElement("h1", null, "Manage Bread"), 
         React.createElement(BreadForm, {
           bread: this.state.bread, 
-          onChange: this.setBreadState})
+          onChange: this.setBreadState, 
+          onSave: this.saveBread})
       )
     );
   }
@@ -52137,7 +52143,7 @@ var ManageBreadPage = React.createClass({displayName: "ManageBreadPage",
 
 module.exports = ManageBreadPage;
 
-},{"./breadForm":233,"react":224}],237:[function(require,module,exports){
+},{"../../api/breadApi":228,"./breadForm":233,"react":224}],237:[function(require,module,exports){
 var React = require('react');
 var Link = require('react-router-dom').Link;
 
@@ -52166,6 +52172,46 @@ module.exports = Header;
 "use strict";
 
 var React = require('react');
+
+var Input = React.createClass({displayName: "Input",
+  propTypes: {
+    name: React.PropTypes.string.isRequired,
+    label: React.PropTypes.string.isRequired,
+    onChange: React.PropTypes.func.isRequired,
+    placeholder: React.PropTypes.string,
+    value: React.PropTypes.string,
+    error: React.PropTypes.string
+  },
+  render: function() {
+    var wrapperClass = 'form-group';
+    if (this.props.error && this.props.error.length > 0) {
+      wrapperClass += " " + "has-error";
+    }
+    return (
+      React.createElement("div", {className: wrapperClass}, 
+        React.createElement("label", {htmlFor: this.props.name}, this.props.label), 
+        React.createElement("div", {className: "field"}, 
+          React.createElement("input", {
+            type: "text", 
+            name: this.props.name, 
+            className: "form-control", 
+            placeholder: this.props.placeholder, 
+            ref: this.props.name, 
+            value: this.props.value, 
+            onChange: this.props.onChange}), 
+          React.createElement("div", {className: "input"}, this.props.error)
+        )
+      )
+    );
+  }
+});
+
+module.exports = Input;
+
+},{"react":224}],239:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
 var Link = require('react-router-dom').Link;
 
 var Home = React.createClass({displayName: "Home",
@@ -52182,7 +52228,7 @@ var Home = React.createClass({displayName: "Home",
 
 module.exports = Home;
 
-},{"react":224,"react-router-dom":185}],239:[function(require,module,exports){
+},{"react":224,"react-router-dom":185}],240:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52193,7 +52239,7 @@ var App = require('./components/app');
 
 ReactDOM.render(React.createElement(Router, null, React.createElement(App, null)), document.getElementById('app'));
 
-},{"./components/app":232,"react":224,"react-dom":46,"react-router-dom":185}],240:[function(require,module,exports){
+},{"./components/app":232,"react":224,"react-dom":46,"react-router-dom":185}],241:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -52222,4 +52268,4 @@ var Routes = React.createClass({displayName: "Routes",
 
 module.exports = Routes;
 
-},{"./components/NotFoundPage":230,"./components/about/aboutPage":231,"./components/breads/breadPage":235,"./components/breads/manageBreadPage":236,"./components/homePage":238,"react":224,"react-router-dom":185}]},{},[239]);
+},{"./components/NotFoundPage":230,"./components/about/aboutPage":231,"./components/breads/breadPage":235,"./components/breads/manageBreadPage":236,"./components/homePage":239,"react":224,"react-router-dom":185}]},{},[240]);
